@@ -1,0 +1,23 @@
+.table {
+  width: 100%;
+
+  thead tr th, tbody tr td {
+    padding: var(--default-padding);
+    text-align: left;
+
+    &.pull-right {
+      text-align: right;
+    }
+  }
+
+  thead {
+    tr {
+      th {
+        font-weight: bold;
+        text-transform: uppercase;
+        background-color: white;
+        color: var(--text-main);
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{% set current_path = app.request.get('_route') %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Admin Dashboard{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap&subset=cyrillic" rel="stylesheet">
+
+    {{ encore_entry_link_tags('admin') }}
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+<div class="grid admin-container">
+    <div class="admin-sidebar">
+        <div class="admin-section-header">
+            <span class="project-name">KingsMeal</span>
+        </div>
+        <nav class="nav-section">
+            <span class="nav-header">Товары</span>
+            {% apply spaceless %}
+            <a href="{{ path('product_index') }}" class="nav-item {% if current_path == 'product_index' %}active{% endif %}">
+                Все товары
+                {% if kingsmeal.productsCount > 0 %}<span class="nav-item-badge">{{ kingsmeal.productsCount }}</span>{% endif %}
+            </a>
+            {% endapply %}
+            <a href="{{ path('product_new') }}" class="nav-item {% if current_path == 'product_new' %}active{% endif %}">Добавить товар</a>
+        </nav>
+        <nav class="nav-section">
+            <span class="nav-header">testing</span>
+            <a href="javascript:" class="nav-item">Item 1</a>
+            <a href="javascript:" class="nav-item">Item 2<span class="nav-item-badge">10+</span></a>
+            <a href="javascript:" class="nav-item">Item 3</a>
+        </nav>
+    </div>
+    <div class="admin-content">
+        <div class="admin-section-header">
+            <nav class="admin-header-navigation">
+{#                <a href="javascript:" class="nav-item">Projects</a>#}
+            </nav>
+        </div>
+        <div class="admin-section-content">
+            <div class="buttons-group">
+                <a href="javascript:" class="button"><span class="icon">👨</span>hello world</a>
+                <a href="javascript:" class="button"><span class="icon">🎅</span>hello world</a>
+            </div>
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+</div>
+{{ encore_entry_script_tags('admin') }}
+{% block javascripts %}{% endblock %}
+</body>
+</html>
