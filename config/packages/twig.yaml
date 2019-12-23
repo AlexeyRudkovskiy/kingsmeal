@@ -2,3 +2,4 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     globals:
         kingsmeal: '@App\Services\KingsMealService'
+    form_themes: ['form.html.twig']

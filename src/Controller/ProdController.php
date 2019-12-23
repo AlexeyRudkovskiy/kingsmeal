@@ -18,7 +18,7 @@ class ProdController extends AbstractController
         /** @var ProductRepository $products */
         $products = $this->getDoctrine()->getRepository(Product::class);
         $users = $this->getDoctrine()->getRepository(User::class);
-        $first = $users->find(2);
+        $first = $users->find(1);
         $first->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
         $this->getDoctrine()->getManager()->persist($first);
         $this->getDoctrine()->getManager()->flush();

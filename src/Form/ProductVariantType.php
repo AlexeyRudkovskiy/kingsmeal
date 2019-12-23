@@ -2,31 +2,25 @@
 
 namespace App\Form;
 
-use App\Entity\Product;
+use App\Entity\ProductVariant;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProductType extends AbstractType
+class ProductVariantType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('name')
             ->add('price')
-            ->add('variants', CollectionType::class, [
-                'entry_type' => ProductVariantType::class,
-                'prototype' => true,
-                'allow_add' => true
-            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Product::class,
+            'data_class' => ProductVariant::class,
         ]);
     }
 }

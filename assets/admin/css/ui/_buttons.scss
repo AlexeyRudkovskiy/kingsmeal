@@ -9,12 +9,14 @@
   text-align: center;
   white-space: nowrap;
   box-sizing: border-box;
+  cursor: pointer;
 
   padding: var(--btn-paddings);
   text-decoration: none;
   outline: none;
 
   color: var(--btn-text-color);
+  background-color: white;
   border-radius: 3px;
   border: 1px solid var(--btn-border-color);
 
