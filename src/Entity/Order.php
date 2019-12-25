@@ -59,6 +59,11 @@ class Order
      */
     private $phoneNumber;
 
+    /**
+     * @ORM\Column(type="string", length=16, )
+     */
+    private $status = 'new';
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -187,6 +192,18 @@ class Order
     public function __toString()
     {
         return 'Заказ №' . $this->getId();
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
     }
 
 }

@@ -19,6 +19,25 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
+    public function getAllCount()
+    {
+        $query = $this->createQueryBuilder('o');
+
+        return intval($query->select($query->expr()->count('o.id'))
+            ->getQuery()
+            ->getSingleResult()[1]);
+    }
+
+    public function getUnprocessedCount()
+    {
+        $query = $this->createQueryBuilder('o');
+
+        return intval($query->select($query->expr()->count('o.id'))
+//            ->where('')
+            ->getQuery()
+            ->getSingleResult()[1]);
+    }
+
     // /**
     //  * @return Order[] Returns an array of Order objects
     //  */
@@ -47,4 +66,5 @@ class OrderRepository extends ServiceEntityRepository
         ;
     }
     */
+
 }

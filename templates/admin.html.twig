@@ -30,13 +30,13 @@
             {% apply spaceless %}
             <a href="{{ path('order_index') }}" class="nav-item {% if current_path == 'order_index' %}active{% endif %}">
                 Все заказы
-                {% if kingsmeal.productsCount > 0 %}<span class="nav-item-badge">{{ kingsmeal.productsCount }}</span>{% endif %}
+                {% if kingsmeal.ordersCount > 0 %}<span class="nav-item-badge">{{ kingsmeal.ordersCount }}</span>{% endif %}
             </a>
             {% endapply %}
             {% apply spaceless %}
             <a href="{{ path('order_unprocessed') }}" class="nav-item {% if current_path == 'order_unprocessed' %}active{% endif %}">
                 Новые заказы
-                {% if kingsmeal.productsCount > 0 %}<span class="nav-item-badge">{{ kingsmeal.productsCount }}</span>{% endif %}
+                {% if kingsmeal.unprocessedOrdersCount > 0 %}<span class="nav-item-badge">{{ kingsmeal.unprocessedOrdersCount }}</span>{% endif %}
             </a>
             {% endapply %}
         </nav>
