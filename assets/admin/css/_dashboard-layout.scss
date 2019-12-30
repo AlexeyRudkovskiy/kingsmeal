@@ -38,8 +38,16 @@
     }
   }
 
+  .admin-sidebar, .admin-content {
+    .admin-section-header {
+      background-color: white;
+    }
+  }
+
   .admin-sidebar {
     width: var(--sidebar-width);
+    flex-shrink: 0;
+    flex-grow: 0;
 
     .nav-section {
       margin-top: var(--default-padding);
@@ -91,6 +99,10 @@
 
     .admin-section-content {
       padding: var(--default-padding);
+
+      &.paddingsless {
+        padding: 0;
+      }
     }
   }
 }

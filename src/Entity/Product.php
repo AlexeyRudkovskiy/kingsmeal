@@ -33,6 +33,16 @@ class Product
      */
     private $variants;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $photoFilename;
+
     public function __construct()
     {
         $this->variants = new ArrayCollection();
@@ -101,6 +111,30 @@ class Product
     public function __toString()
     {
         return $this->getName();
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getPhotoFilename(): ?string
+    {
+        return $this->photoFilename;
+    }
+
+    public function setPhotoFilename(string $photoFilename): self
+    {
+        $this->photoFilename = $photoFilename;
+
+        return $this;
     }
 
 }

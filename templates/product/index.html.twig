@@ -29,9 +29,22 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">
+                    <div class="alert">
+                        <div class="alert-message">Товары не найдены</div>
+                        <div class="alert-actions">
+                            <div class="buttons-group">
+                                <a href="{{ url('product_new') }}" class="button">Создать продукт</a>
+                            </div>
+                        </div>
+                    </div>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+
+    <div class="navigation">
+        {{ knp_pagination_render(products) }}
+    </div>
 {% endblock %}

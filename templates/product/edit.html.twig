@@ -1,10 +1,10 @@
-{% extends 'admin.html.twig' %}
+{% extends 'product/_template.html.twig' %}
 
-{% block title %}Edit Product{% endblock %}
+{% block title %}{{ product.name }} :: Редактирование товара :: King'sMeal{% endblock %}
+{% block content_classes "paddingsless" %}
 
-{% block body %}
-    <h1>Edit Product</h1>
+{% block product_content %}
 
-    {{ include('product/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('product/_form.html.twig', {'button_label': 'Сохранить'}) }}
 
 {% endblock %}

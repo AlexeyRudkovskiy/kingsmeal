@@ -7,6 +7,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
@@ -34,6 +37,16 @@ class ProductRepository extends ServiceEntityRepository
         } catch (NonUniqueResultException $e) {
             return 0;
         }
+    }
+
+    public function getPaginated(PaginatorInterface $paginator, Request $request)
+    {
+        $query = $this->createQueryBuilder('p')
+            ->orderBy('p.id', 'desc')
+            ->getQuery();
+
+
+        return $paginator->paginate($query, $request->query->getInt('page', 1), 1);
     }
 
     // /**

@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\ProductVariant;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -12,8 +14,17 @@ class ProductVariantType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('price')
+            ->add('name', TextType::class, [
+                'label' => 'Название'
+            ])
+            ->add('price', NumberType::class, [
+                'html5' => true,
+                'attr' => [
+                    'min' => 0,
+                    'step' => 0.01
+                ],
+                'label' => 'Цена'
+            ])
         ;
     }
 

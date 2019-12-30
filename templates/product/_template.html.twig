@@ -1,0 +1,20 @@
+{% extends 'admin.html.twig' %}
+
+{% block body %}
+
+    <div class="details-container">
+        <div class="details-container-header">
+            <div class="details-container-header-content">
+                <h2>{{ product.name }}</h2>
+            </div>
+            <nav class="details-container-navigation">
+                <a href="{{ url('product_show', { id: product.id }) }}" {% if current_path == 'product_show' %} class="active" {% endif %}>Основная информация</a>
+                <a href="{{ url('product_edit', { id: product.id }) }}" {% if current_path == 'product_edit' %} class="active" {% endif %}>Редактирование товара</a>
+                <a href="{{ url('product_variant_index', { product_id: product.id }) }}" {% if current_path == 'product_variant_index' or current_path == 'product_variant_new' or current_path == 'product_variant_edit' %} class="active" {% endif %}>Варианты товара</a>
+            </nav>
+        </div>
+        <div class="details-container-content">
+            {% block product_content %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

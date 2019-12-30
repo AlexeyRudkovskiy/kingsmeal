@@ -1,6 +1,19 @@
 .table {
   width: 100%;
 
+  &.details-table {
+    width: 400px;
+
+    tr th {
+      text-align: left;
+      font-weight: bold;
+      width: 100px;
+      vertical-align: top;
+      padding-top: var(--default-padding);
+      padding-bottom: var(--default-padding);
+    }
+  }
+
   thead tr th, tbody tr td {
     padding: var(--default-padding);
     text-align: left;

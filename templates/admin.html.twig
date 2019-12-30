@@ -53,11 +53,7 @@
 {#                <a href="javascript:" class="nav-item">Projects</a>#}
             </nav>
         </div>
-        <div class="admin-section-content">
-            <div class="buttons-group">
-                <a href="javascript:" class="button"><span class="icon">👨</span>hello world</a>
-                <a href="javascript:" class="button"><span class="icon">🎅</span>hello world</a>
-            </div>
+        <div class="admin-section-content {% block content_classes "" %}">
             {% block body %}{% endblock %}
         </div>
     </div>

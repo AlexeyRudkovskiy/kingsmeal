@@ -1,37 +1,48 @@
-{% extends 'admin.html.twig' %}
+{% extends 'product/_template.html.twig' %}
 
-{% block title %}ProductVariant index{% endblock %}
+{% block title %}{{ product.name }} :: Варианты товара :: King'sMeal{% endblock %}
+{% block content_classes "paddingsless" %}
 
-{% block body %}
-    <h1>ProductVariant index</h1>
+{% block product_content %}
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>actions</th>
+                <th>Название</th>
+                <th class="pull-right" style="width: 100px;">Цена</th>
+                <th class="pull-right" style="width: 220px;">Действия</th>
             </tr>
         </thead>
         <tbody>
         {% for product_variant in product_variants %}
             <tr>
-                <td>{{ product_variant.id }}</td>
                 <td>{{ product_variant.name }}</td>
-                <td>{{ product_variant.price }}</td>
-                <td>
-                    <a href="{{ path('product_variant_show', {'product_id': 1, 'id': product_variant.id}) }}">show</a>
-                    <a href="{{ path('product_variant_edit', {'product_id': 1, 'id': product_variant.id}) }}">edit</a>
+                <td class="pull-right">{{ product_variant.price }}</td>
+                <td class="pull-right">
+                    <div class="buttons-group button-group-pull-right">
+                        <a href="{{ path('product_variant_delete', {'product_id': 1, 'id': product_variant.id}) }}" class="button button-small">удалить</a>
+                        <a href="{{ path('product_variant_edit', {'product_id': 1, 'id': product_variant.id}) }}" class="button button-small">редактировать</a>
+                    </div>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="3">
+                    <div class="alert">
+                        <div class="alert-message">Варианты товаров не найдены</div>
+                        <div class="alert-actions button-small">
+                            <a href="{{ url('product_variant_new', {product_id: product.id}) }}" class="button">Создать первый вариант?</a>
+                        </div>
+                    </div>
+                </td>
             </tr>
         {% endfor %}
+        {% if product_variants.count > 0 %}
+            <tr>
+                <td colspan="3" class="pull-right"><a href="{{ url('product_variant_new', { product_id: product.id }) }}" class="button">Создать</a></td>
+            </tr>
+        {% endif %}
         </tbody>
     </table>
 
-    <a href="{{ path('product_variant_new', { 'product_id': 1 }) }}">Create new</a>
 {% endblock %}

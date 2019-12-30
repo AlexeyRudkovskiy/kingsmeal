@@ -12,18 +12,30 @@ form {
       margin-bottom: var(--half-padding);
       text-transform: uppercase;
       color: var(--text-base);
+
+      .invalid-feedback {
+        color: var(--danger);
+      }
     }
 
     .form-control {
+      --control-border-color: var(--border-color-main);
+      --control-focus-border-shadow-color: rgba(84,147,245,.5);
+
       box-sizing: border-box;
       padding: var(--form-control-paddings);
-      border: 1px solid var(--border-color-main);
+      border: 1px solid var(--control-border-color);
       border-radius: 3px;
       outline: none;
 
+      &.is-invalid {
+        --control-border-color: var(--danger);
+        --control-focus-border-shadow-color: var(--danger);
+      }
+
       &:focus {
         //border-color: var(--info);
-        box-shadow: 0 0 0 3px rgba(84,147,245,.5);
+        box-shadow: 0 0 0 3px var(--control-focus-border-shadow-color);
       }
     }
   }

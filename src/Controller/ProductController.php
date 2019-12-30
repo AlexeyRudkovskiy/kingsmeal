@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,10 +21,10 @@ class ProductController extends AbstractController
     /**
      * @Route("/", name="product_index", methods={"GET"})
      */
-    public function index(ProductRepository $productRepository): Response
+    public function index(Request $request, ProductRepository $productRepository, PaginatorInterface $paginator): Response
     {
         return $this->render('product/index.html.twig', [
-            'products' => $productRepository->findAll(),
+            'products' => $productRepository->getPaginated($paginator, $request),
         ]);
     }
 
@@ -36,6 +38,7 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->uploadPhoto($product, $form);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($product);
             $entityManager->flush();
@@ -68,9 +71,10 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->uploadPhoto($product, $form);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('product_index');
+            return $this->redirectToRoute('product_show', [ 'id' => $product->getId() ]);
         }
 
         return $this->render('product/edit.html.twig', [
@@ -91,5 +95,32 @@ class ProductController extends AbstractController
         }
 
         return $this->redirectToRoute('product_index');
+    }
+
+    /**
+     * @param Product $product
+     * @param \Symfony\Component\Form\FormInterface $form
+     */
+    public function uploadPhoto(Product $product, \Symfony\Component\Form\FormInterface $form): void
+    {
+        /** @var UploadedFile $previewFile */
+        $previewFile = $form['photoFilename']->getData();
+
+        $photoFilename = $product->getPhotoFilename();
+        $directory = $this->getParameter('previews_directory');
+        $absoluteFilePath = $directory . '/' . $photoFilename;
+
+        if (is_file($absoluteFilePath)) {
+            unlink($absoluteFilePath);
+        }
+
+        if ($previewFile !== null) {
+            $originalName = pathinfo($previewFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = sha1($originalName) . '-' . uniqid() . '.' . $previewFile->guessExtension();
+
+            $previewFile->move($directory, $newFilename);
+
+            $product->setPhotoFilename($newFilename);
+        }
     }
 }

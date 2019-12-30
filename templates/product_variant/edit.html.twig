@@ -1,13 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'product/_template.html.twig' %}
 
-{% block title %}Edit ProductVariant{% endblock %}
+{% block title %}{{ product.name }} :: Редактирование варианта товара :: King'sMeal{% endblock %}
+{% block content_classes "paddingsless" %}
 
-{% block body %}
-    <h1>Edit ProductVariant</h1>
+{% block product_content %}
 
-    {{ include('product_variant/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('product_variant/_form.html.twig', {'button_label': 'Сохранить'}) }}
 
-    <a href="{{ path('product_variant_index') }}">back to list</a>
-
-    {{ include('product_variant/_delete_form.html.twig') }}
 {% endblock %}
