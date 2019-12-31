@@ -33,4 +33,17 @@
       }
     }
   }
+
+  tbody tr td {
+    .small-image {
+      width: 50px;
+      height: 50px;
+      object-fit: none;
+      object-position: center;
+      vertical-align: middle;
+      border-radius: 3px;
+      overflow: hidden;
+      box-shadow: 0 3px 6px rgba(black, 0.1);
+    }
+  }
 }

@@ -27,6 +27,10 @@
             <th>Фотография</th>
             <td><img src="{{ asset('uploads/photos/' ~ product.photoFilename) }}" width="125" /></td>
         </tr>
+        <tr>
+            <th>Категории</th>
+            <td>{{ product.categoriesNames }}</td>
+        </tr>
         </tbody>
     </table>
 

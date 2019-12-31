@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Repository\CategoryRepository;
 use App\Repository\OrderRepository;
 use App\Repository\ProductRepository;
 
@@ -14,6 +15,8 @@ class KingsMealService
     private $productRepository;
     /** @var OrderRepository */
     private $ordersRepository;
+    /** @var CategoryRepository */
+    private $categoryRepository;
 
     /** @var int  */
     private $productsCount = -1;
@@ -24,10 +27,14 @@ class KingsMealService
     /** @var int  */
     private $unprocessedOrdersCount = -1;
 
-    public function __construct(ProductRepository $productRepository, OrderRepository $orderRepository)
+    /** @var int  */
+    private $categoriesCount = -1;
+
+    public function __construct(ProductRepository $productRepository, OrderRepository $orderRepository, CategoryRepository $categoryRepository)
     {
         $this->productRepository = $productRepository;
         $this->ordersRepository = $orderRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     public function productsCount()
@@ -52,7 +59,16 @@ class KingsMealService
             $this->unprocessedOrdersCount = $this->ordersRepository->getUnprocessedCount();
         }
 
-        return $this->ordersCount;
+        return $this->unprocessedOrdersCount;
+    }
+
+    public function categoriesCount()
+    {
+        if ($this->categoriesCount < 0) {
+            $this->categoriesCount = $this->categoryRepository->getAllCount();
+        }
+
+        return $this->categoriesCount;
     }
 
 }

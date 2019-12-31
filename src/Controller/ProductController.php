@@ -97,6 +97,7 @@ class ProductController extends AbstractController
         return $this->redirectToRoute('product_index');
     }
 
+    /** todo: move this code to service */
     /**
      * @param Product $product
      * @param \Symfony\Component\Form\FormInterface $form
@@ -106,15 +107,15 @@ class ProductController extends AbstractController
         /** @var UploadedFile $previewFile */
         $previewFile = $form['photoFilename']->getData();
 
-        $photoFilename = $product->getPhotoFilename();
-        $directory = $this->getParameter('previews_directory');
-        $absoluteFilePath = $directory . '/' . $photoFilename;
-
-        if (is_file($absoluteFilePath)) {
-            unlink($absoluteFilePath);
-        }
-
         if ($previewFile !== null) {
+            $photoFilename = $product->getPhotoFilename();
+            $directory = $this->getParameter('previews_directory');
+            $absoluteFilePath = $directory . '/' . $photoFilename;
+
+            if (is_file($absoluteFilePath)) {
+                unlink($absoluteFilePath);
+            }
+
             $originalName = pathinfo($previewFile->getClientOriginalName(), PATHINFO_FILENAME);
             $newFilename = sha1($originalName) . '-' . uniqid() . '.' . $previewFile->guessExtension();
 

@@ -11,6 +11,7 @@
                 <th width="50">Id</th>
                 <th>Название</th>
                 <th width="125" class="pull-right">Цена</th>
+                <th width="200">Категории</th>
                 <th width="225" class="pull-right">Действия</th>
             </tr>
         </thead>
@@ -20,6 +21,7 @@
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
                 <td class="pull-right">{{ "%.2f" | format(product.price) }} грн</td>
+                <td>{{ product.categoriesNames }}</td>
                 <td class="pull-right">
                     <div class="buttons-group button-group-pull-right">
                         <a href="{{ path('product_show', {'id': product.id}) }}" class="button button-small">Показать</a>

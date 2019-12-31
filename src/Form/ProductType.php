@@ -2,8 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Product;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -41,6 +44,12 @@ class ProductType extends AbstractType
                         'mimeTypesMessage' => 'Вы должны загружать фотографию в формате JPEG/PNG',
                     ])
                 ]
+            ])
+            ->add('categories', EntityType::class, [
+                'required' => true,
+                'multiple' => true,
+                'expanded' => true,
+                'class' => Category::class
             ])
         ;
     }

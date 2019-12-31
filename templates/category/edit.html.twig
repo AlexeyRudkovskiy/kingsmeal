@@ -1,0 +1,10 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Редактирование категории :: King'sMeal{% endblock %}
+
+{% block body %}
+    <h1>Редактирование категории</h1>
+
+    {{ include('category/_form.html.twig', {'button_label': 'Обновить'}) }}
+
+{% endblock %}
