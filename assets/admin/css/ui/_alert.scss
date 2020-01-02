@@ -1,6 +1,7 @@
 .alert {
   --default-border-color: #{$blue-color};
 
+  background-color: white;
   border-radius: 3px;
   overflow: hidden;
   padding: var(--default-padding);
