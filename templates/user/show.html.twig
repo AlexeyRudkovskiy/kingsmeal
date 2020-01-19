@@ -1,0 +1,33 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+    <table class="table details-table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Логин</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Роли</th>
+                <td>{{ user.roles ? user.roles|join(', ') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form method="post" action="{{ path('user_delete', {'id': user.id}) }}">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+
+        <div class="buttons-group">
+            <a href="javascript:" class="button" onclick="confirm('Вы действительно хотите удалить этого пользователя?') ? this.parentElement.parentElement.submit() : null;"><span>Удалить</span></a>
+            <a href="{{ path('user_edit', {'id': user.id}) }}" class="button">Редактировать</a>
+        </div>
+    </form>
+
+{% endblock %}

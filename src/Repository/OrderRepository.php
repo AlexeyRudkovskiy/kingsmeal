@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Order;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @method Order|null find($id, $lockMode = null, $lockVersion = null)
@@ -28,12 +30,32 @@ class OrderRepository extends ServiceEntityRepository
             ->getSingleResult()[1]);
     }
 
+    public function findWithStatus(PaginatorInterface $paginator, Request $request, string $status = null)
+    {
+        $query = $this->createQueryBuilder('o');
+
+        if ($status === null) {
+            $query = $query
+                ->getQuery()
+                ->getResult();
+        } else {
+            $query = $query
+                ->where('o.status = ?1')
+                ->setParameter(1, $status)
+                ->getQuery()
+                ->getResult();
+        }
+
+        return $paginator->paginate($query, $request->query->getInt('page', 1), 1);
+    }
+
     public function getUnprocessedCount()
     {
         $query = $this->createQueryBuilder('o');
 
         return intval($query->select($query->expr()->count('o.id'))
-//            ->where('')
+            ->where('o.status = ?1')
+            ->setParameter(1, 'unprocessed')
             ->getQuery()
             ->getSingleResult()[1]);
     }

@@ -51,6 +51,15 @@
             <a href="{{ path('category_new') }}" class="nav-item {% if current_path == 'category_new' %}active{% endif %}">Добавить категорию</a>
         </nav>
         <nav class="nav-section">
+            <span class="nav-header">Пользователи</span>
+            {% apply spaceless %}
+            <a href="{{ path('user_index') }}" class="nav-item {% if current_path == 'user_index' %}active{% endif %}">
+                Все пользователи
+            </a>
+            {% endapply %}
+            <a href="{{ path('user_new') }}" class="nav-item {% if current_path == 'user_new' %}active{% endif %}">Добавить пользователя</a>
+        </nav>
+        <nav class="nav-section">
             <span class="nav-header">testing</span>
             <a href="javascript:" class="nav-item">Item 1</a>
             <a href="javascript:" class="nav-item">Item 2<span class="nav-item-badge">10+</span></a>

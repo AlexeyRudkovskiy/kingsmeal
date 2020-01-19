@@ -3,45 +3,46 @@
 {% block title %}Order index{% endblock %}
 
 {% block body %}
-    <h1>Order index</h1>
-
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>PaymentMethod</th>
-                <th>Address</th>
-                <th>HouseNumber</th>
-                <th>Apartment</th>
-                <th>FirstName</th>
-                <th>LastName</th>
-                <th>PhoneNumber</th>
-                <th>actions</th>
+                <th class="id-column">Id</th>
+                <th style="width: 250px;">Имя и фамилия</th>
+                <th>Адрес доставки</th>
+                <th style="width: 175px;" class="pull-right">Стоимость заказа</th>
+                <th class="actions-column small-actions-column pull-right">actions</th>
             </tr>
         </thead>
         <tbody>
         {% for order in orders %}
             <tr>
                 <td>{{ order.id }}</td>
-                <td>{{ order.paymentMethod }}</td>
-                <td>{{ order.address }}</td>
-                <td>{{ order.houseNumber }}</td>
-                <td>{{ order.apartment }}</td>
-                <td>{{ order.firstName }}</td>
-                <td>{{ order.lastName }}</td>
-                <td>{{ order.phoneNumber }}</td>
-                <td>
-                    <a href="{{ path('order_show', {'id': order.id}) }}">show</a>
-                    <a href="{{ path('order_edit', {'id': order.id}) }}">edit</a>
+                <td>{{ order.fullName }}</td>
+                <td>{{ order.fullAddress }}</td>
+                <td class="pull-right">{% apply spaceless %}
+                    {% set price = 0 %}
+                    {% for orderedProduct in order.products %}
+                        {% set price = price + (orderedProduct.quantity * orderedProduct.price) %}
+                    {% endfor %}
+                    {{ price | number_format(2) }} грн
+                    {% endapply %}</td>
+                <td class="pull-right">
+                    <a href="{{ path('order_show', {'id': order.id}) }}" class="button button-small">Подробнее</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="9">no records found</td>
+                <td colspan="5">
+                    <div class="alert">
+                        <div class="alert-message">Пользователи ещё не сделали ни одного заказа</div>
+                    </div>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('order_new') }}">Create new</a>
+    <div class="navigation">
+        {{ knp_pagination_render(orders) }}
+    </div>
 {% endblock %}

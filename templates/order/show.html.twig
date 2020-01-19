@@ -3,48 +3,76 @@
 {% block title %}Order{% endblock %}
 
 {% block body %}
-    <h1>Order</h1>
+    <h1>Заказ</h1>
 
-    <table class="table">
+    <table class="table details-table details-table-large">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>Номер заказа</th>
                 <td>{{ order.id }}</td>
             </tr>
             <tr>
-                <th>PaymentMethod</th>
-                <td>{{ order.paymentMethod }}</td>
+                <th>Способ оплаты</th>
+                <td>{% if order.paymentMethod == 'card' %}Картой{% else %}Курьеру{% endif %}</td>
             </tr>
             <tr>
-                <th>Address</th>
-                <td>{{ order.address }}</td>
+                <th>Клиент</th>
+                <td>{{ order.fullName }}</td>
             </tr>
             <tr>
-                <th>HouseNumber</th>
-                <td>{{ order.houseNumber }}</td>
+                <th>Адрес</th>
+                <td>{{ order.fullAddress }}</td>
             </tr>
             <tr>
-                <th>Apartment</th>
-                <td>{{ order.apartment }}</td>
+                <th>Статус</th>
+                <td>{% apply spaceless %}
+                        {% if order.status == 'new' %}Новый{% endif %}
+                        {% if order.status == 'unprocessed' %}Необработанный{% endif %}
+                        {% if order.status == 'done' %}Готовый{% endif %}
+                    {% endapply %}</td>
             </tr>
             <tr>
-                <th>FirstName</th>
-                <td>{{ order.firstName }}</td>
+                <th>Товары</th>
+                <td>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Товар</th>
+                            <th style="width: 75px;" class="pull-right">Количество</th>
+                            <th style="width: 75px;" class="pull-right">За единицу</th>
+                            <th style="width: 75px;" class="pull-right">Сумма</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for orderedProduct in order.products %}
+                            <td>{% apply spaceless %}
+                                    <span>{{ orderedProduct.product.name }}</span>
+                                    {% if orderedProduct.variant != null %}
+                                        &nbsp;-&nbsp;<span>{{ orderedProduct.variant.name }}</span>
+                                    {% endif %}
+                                {% endapply %}</td>
+                            <td class="pull-right">{{ orderedProduct.quantity }}</td>
+                            <td class="pull-right">{{ orderedProduct.price | number_format(2) }} грн</td>
+                            <td class="pull-right">{{ (orderedProduct.price * orderedProduct.quantity) | number_format(2) }} грн</td>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
             </tr>
             <tr>
-                <th>LastName</th>
-                <td>{{ order.lastName }}</td>
+                <th>Номер телефона</th>
+                <td><a href="tel:{{ order.phoneNumber }}">{{ order.phoneNumber }}</a></td>
             </tr>
+            {% if order.status != 'done' %}
             <tr>
-                <th>PhoneNumber</th>
-                <td>{{ order.phoneNumber }}</td>
+                <th>Действия</th>
+                <td>
+                    <form class="button-group" method="post" action="{{ url('order_update', { id: order.id }) }}">
+                        <input type="submit" class="button" value="Отметить готовым" />
+                    </form>
+                </td>
             </tr>
+            {% endif %}
         </tbody>
     </table>
-
-    <a href="{{ path('order_index') }}">back to list</a>
-
-    <a href="{{ path('order_edit', {'id': order.id}) }}">edit</a>
-
-    {{ include('order/_delete_form.html.twig') }}
 {% endblock %}

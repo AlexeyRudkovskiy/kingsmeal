@@ -10,8 +10,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProdController extends AbstractController
 {
+
     /**
-     * @Route("/", name="prod")
+     * @Route("/")
+     */
+    public function index2()
+    {
+        return $this->render('prod/index2.html.twig', [  ]);
+    }
+
+    /**
+     * @Route("/test", name="prod")
      */
     public function index()
     {

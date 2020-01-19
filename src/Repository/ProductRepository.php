@@ -46,7 +46,7 @@ class ProductRepository extends ServiceEntityRepository
             ->getQuery();
 
 
-        return $paginator->paginate($query, $request->query->getInt('page', 1), 1);
+        return $paginator->paginate($query, $request->query->getInt('page', 1), 20);
     }
 
     // /**

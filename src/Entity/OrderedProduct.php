@@ -107,4 +107,5 @@ class OrderedProduct
 
         return $this;
     }
+
 }

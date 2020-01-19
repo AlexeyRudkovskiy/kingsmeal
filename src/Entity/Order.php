@@ -206,4 +206,17 @@ class Order
         return $this;
     }
 
+    public function getFullAddress()
+    {
+        $addressParts = [$this->getAddress(), $this->getHouseNumber(), $this->getApartment()];
+        $addressParts = array_filter($addressParts, function ($item) { return strlen($item) > 0; });
+        return implode(', ', $addressParts);
+    }
+
+    public function getFullName()
+    {
+        $fullNameParts = [$this->getFirstName(), $this->getLastName()];
+        return implode(' ', $fullNameParts);
+    }
+
 }

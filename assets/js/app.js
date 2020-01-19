@@ -6,9 +6,21 @@
  */
 
 // any CSS you require will output into a single css file (app.css in this case)
+import React from "react";
+import {render} from 'react-dom'
+import Component1 from "./component1.js";
+import Component2 from "./component2.js";
+
 require('../css/app.css');
 
-// Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
-// const $ = require('jquery');
+const component1Target = document.querySelector('.component1');
+const component2Target = document.querySelector('.component2');
 
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+if (component1Target !== null) {
+    render(<Component1 />, component1Target);
+}
+
+if (component2Target !== null) {
+    render(<Component2 />, component2Target);
+}
+

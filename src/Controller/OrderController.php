@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Order;
 use App\Form\OrderType;
 use App\Repository\OrderRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,43 +19,20 @@ class OrderController extends AbstractController
     /**
      * @Route("/", name="order_index", methods={"GET"})
      */
-    public function index(OrderRepository $orderRepository): Response
+    public function index(OrderRepository $orderRepository, PaginatorInterface $paginator, Request $request): Response
     {
         return $this->render('order/index.html.twig', [
-            'orders' => $orderRepository->findAll(),
+            'orders' => $orderRepository->findWithStatus($paginator, $request),
         ]);
     }
 
     /**
      * @Route("/unprocessed", name="order_unprocessed", methods={"GET"})
      */
-    public function newOrders(OrderRepository $orderRepository): Response
+    public function newOrders(OrderRepository $orderRepository, PaginatorInterface $paginator, Request $request): Response
     {
         return $this->render('order/index.html.twig', [
-            'orders' => $orderRepository->findAll()
-        ]);
-    }
-
-    /**
-     * @Route("/new", name="order_new", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
-    {
-        $order = new Order();
-        $form = $this->createForm(OrderType::class, $order);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($order);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('order_index');
-        }
-
-        return $this->render('order/new.html.twig', [
-            'order' => $order,
-            'form' => $form->createView(),
+            'orders' => $orderRepository->findWithStatus($paginator, $request, 'unprocessed')
         ]);
     }
 
@@ -69,36 +47,20 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="order_edit", methods={"GET","POST"})
+     *
+     * @Route("/{id}", name="order_update", methods={"POST"})
+     * @param Order $order
+     * @return Response
      */
-    public function edit(Request $request, Order $order): Response
+    public function update(Order $order): Response
     {
-        $form = $this->createForm(OrderType::class, $order);
-        $form->handleRequest($request);
+        $order->setStatus('done');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($order);
+        $em->flush();
 
-            return $this->redirectToRoute('order_index');
-        }
-
-        return $this->render('order/edit.html.twig', [
-            'order' => $order,
-            'form' => $form->createView(),
-        ]);
+        return $this->redirectToRoute('order_show', [ 'id' => $order->getId() ]);
     }
 
-    /**
-     * @Route("/{id}", name="order_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Order $order): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$order->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($order);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('order_index');
-    }
 }

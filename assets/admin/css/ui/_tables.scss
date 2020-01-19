@@ -2,12 +2,20 @@
   width: 100%;
 
   &.details-table {
-    width: 400px;
+    --default-width: 400px;
+    --field-width: 100px;
+
+    width: var(--default-width);
+
+    &.details-table-large {
+      --default-width: 950px;
+      --field-width: 150px;
+    }
 
     tr th {
       text-align: left;
       font-weight: bold;
-      width: 100px;
+      width: var(--field-width);
       vertical-align: top;
       padding-top: var(--default-padding);
       padding-bottom: var(--default-padding);
@@ -20,6 +28,18 @@
 
     &.pull-right {
       text-align: right;
+    }
+
+    &.id-column {
+      width: 50px;
+    }
+
+    &.actions-column {
+      width: 225px;
+
+      &.small-actions-column {
+        width: 150px;
+      }
     }
   }
 
