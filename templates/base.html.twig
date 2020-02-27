@@ -2,13 +2,75 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui, user-scalable=no" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {{ encore_entry_link_tags('admin') }}
+        {{ encore_entry_link_tags('app') }}
         {% block stylesheets %}{% endblock %}
+
+        <meta name="theme-color" content="#212121">
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {{ encore_entry_script_tags('app') }}
-        {% block javascripts %}{% endblock %}
+
+    <div class="navigation-bar">
+        <div class="container">
+            <nav class="navigation-links">
+                <a href="javascript:" class="active with-icon"><img src="{{ asset('assets/icons/home-24px.png') }}" class="icon" />Главная</a>
+                <a href="#menu">Меню</a>
+                <a href="#promos">Акции</a>
+                <a href="#location">Контакты и доставка</a>
+            </nav>
+            <div class="horizontal-spacer"></div>
+            <nav class="navigation-links navigation-links-as-icons">
+                <a href="#location"><img src="{{ asset('assets/icons/maps.png') }}" /></a>
+                <a href="javascript:" class="show-phones"><img src="{{ asset('assets/icons/phone.png') }}" /></a>
+                <a href="javascript:"><img src="{{ asset('assets/icons/instagram.png') }}" /></a>
+                <a href="javascript:" class="cart-icon"><img src="{{ asset('assets/icons/shopping-cart.png') }}" /></a>
+            </nav>
+            <div class="phones-popup hidden">
+                {% for phone in kingsmeal.getSetting('phones') %}
+                    <a href="tel:{{ phone }}">{{ phone }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="mobile-only mobile-menu">
+        <div class="static-part">
+            <div class="website-home"><img src="{{ asset('/assets/icons/home-24px.png') }}" /><span>Главная</span></div>
+            <div class="expand-menu">
+                <div class="expand-menu-button">
+                    <img src="{{ asset('/assets/icons/menu-24px@2x.png') }}" />
+                </div>
+            </div>
+        </div>
+        <div class="menu-items hidden">
+            <nav class="mobile-menu-links">
+                <a href="#menu">Меню</a>
+                <a href="#promos">Акции</a>
+                <a href="#location">Контакты и доставка</a>
+            </nav>
+            <div class="links-as-icons">
+                <a href="#location"><img src="{{ asset('assets/icons/maps.png') }}" /></a>
+                <a href="javascript:" class="show-phones"><img src="{{ asset('assets/icons/phone.png') }}" /></a>
+                <a href="javascript:"><img src="{{ asset('assets/icons/instagram.png') }}" /></a>
+            </div>
+            <div class="phones-popup hidden">
+                {% for phone in kingsmeal.getSetting('phones') %}
+                    <a href="tel:{{ phone }}">{{ phone }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="header">
+        <img src="{{ asset(kingsmeal.getSetting('logo')) }}" />
+    </div>
+
+    {% block body %}{% endblock %}
+
+    <div class="popup-target hidden"></div>
+
+    {{ encore_entry_script_tags('app') }}
+    {% block javascripts %}{% endblock %}
+
+    <script defer src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap"></script>
     </body>
 </html>

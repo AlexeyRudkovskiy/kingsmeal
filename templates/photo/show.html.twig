@@ -1,0 +1,30 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}{{ 'Photo :: KingsMeal' | trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'Photo' | trans }}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>{{ 'ID' | trans }}</th>
+                <td>{{ photo.id }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'Image' | trans }}</th>
+                <td>{{ photo.imagePath }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'Size' | trans }}</th>
+                <td>{{ photo.size }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('photo_index') }}">{{ 'Back to List' | trans }}</a>
+
+    <a href="{{ path('photo_edit', {'id': photo.id}) }}">{{ 'Edit' | trans }}</a>
+
+    {{ include('photo/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}{{ 'Creating a photo :: KingsMeal' | trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'Creating a photo' | trans }}</h1>
+
+    {{ include('photo/_form.html.twig') }}
+
+    <a href="{{ path('photo_index') }}">{{ 'Back to List' | trans }}</a>
+{% endblock %}

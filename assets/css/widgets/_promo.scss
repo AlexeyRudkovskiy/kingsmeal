@@ -1,0 +1,37 @@
+@import "../variables";
+
+.promo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  .promo-container {
+    width: 333px;
+
+    .promo-image {
+      width: 100%;
+      object-fit: cover;
+      object-position: center center;
+      margin-bottom: 8px;
+    }
+
+    .promo-title, .promo-description {
+      font-weight: bold;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .promo-title {
+      color: $yellow-color;
+      line-height: 19px;
+    }
+
+    .promo-description {
+      margin-top: 4px;
+      color: rgba(white, 0.75);
+      line-height: 22px;
+    }
+  }
+}

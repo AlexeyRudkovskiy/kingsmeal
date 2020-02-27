@@ -1,0 +1,10 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}{{ 'New Advertising' | trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'Creating a new Ads' | trans }}</h1>
+
+    {{ include('advertising/_form.html.twig') }}
+
+{% endblock %}

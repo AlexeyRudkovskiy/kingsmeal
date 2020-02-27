@@ -30,12 +30,19 @@ class Category
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="categories")
+     * @ORM\OrderBy({"id":"DESC"})
      */
     private $products;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Photo", mappedBy="category")
+     */
+    private $photos;
 
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->photos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -98,6 +105,39 @@ class Category
     public function __toString()
     {
         return $this->getName();
+    }
+
+    public function getImageUrl()
+    {
+        return '/uploads/photos/' . $this->getImageFilename();
+    }
+
+    /**
+     * @return Collection|Photo[]
+     */
+    public function getPhotos(): Collection
+    {
+        return $this->photos;
+    }
+
+    public function addPhoto(Photo $photo): self
+    {
+        if (!$this->photos->contains($photo)) {
+            $this->photos[] = $photo;
+            $photo->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhoto(Photo $photo): self
+    {
+        if ($this->photos->contains($photo)) {
+            $this->photos->removeElement($photo);
+            $photo->removeCategory($this);
+        }
+
+        return $this;
     }
 
 }

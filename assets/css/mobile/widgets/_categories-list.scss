@@ -1,0 +1,35 @@
+$normalHeight: 125px;
+$compactHeight: 90px;
+
+.categories-list {
+  --gap: 5px;
+
+  padding: 10px;
+
+  .category-item {
+    width: calc(50% - var(--gap));
+    height: $normalHeight;
+
+    &:nth-child(2n) {
+      margin-left: var(--gap);
+    }
+
+    &:nth-child(2n+1) {
+      margin-right: var(--gap);
+    }
+
+    &.compact {
+      --scale-factor: 1.10;
+      height: $compactHeight;
+
+      &:hover {
+        --scale-factor: 1.05;
+      }
+
+      &.active {
+        --scale-factor: 1.10;
+      }
+    }
+  }
+
+}

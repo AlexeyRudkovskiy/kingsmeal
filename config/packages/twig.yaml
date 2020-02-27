@@ -2,4 +2,5 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     globals:
         kingsmeal: '@App\Services\KingsMealService'
+        google_maps_api_key: '%env(GOOGLE_MAPS_API_KEY)%'
     form_themes: ['form.html.twig']

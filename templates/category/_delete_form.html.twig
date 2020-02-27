@@ -1,8 +1,8 @@
-<form method="post" action="{{ path('category_delete', {'id': category.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" action="{{ path('category_delete', {'id': category.id}) }}">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
     <div class="buttons-group">
-        <a href="{{ path('category_edit', {'id': category.id}) }}" class="button">Редактировать</a>
-        <a href="javascript:" onclick="confirm('Вы действительно хотите удалить эту запись?') ? this.parentElement.parentElement.submit() : console.log('');" class="button">Удалить</a>
+        <a href="{{ path('category_edit', {'id': category.id}) }}" class="button">{{ 'Edit' | trans }}</a>
+        <a href="javascript:" onclick="confirm('{{ 'Do you really want to delete this record?' | trans }}') ? this.parentElement.parentElement.submit() : console.log('');" class="button">{{ 'Delete' | trans }}</a>
     </div>
 </form>

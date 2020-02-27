@@ -1,0 +1,24 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}{{ 'Photos :: KingsMeal' | trans }}{% endblock %}
+
+{% block body %}
+
+    <div class="grid">
+        <div class="column column-9">
+            <div class="grid photos-grid">
+                {% for photo in photos %}
+                    <div class="column column-2 photo-item">{% apply spaceless %}
+                        <a href="{{ url('photo_edit', { id: photo.id }) }}">
+                            <img src="{{ photo.photoUrl }}" />
+                        </a>
+                    {% endapply %}</div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="column column-3">
+            {{ include('photo/_form.html.twig') }}
+        </div>
+    </div>
+
+{% endblock %}

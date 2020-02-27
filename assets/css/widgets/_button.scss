@@ -1,0 +1,29 @@
+@import "../variables";
+
+.button {
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: rgba(black, 0.45);
+  text-decoration: none;
+
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 3px;
+  box-shadow: 0 3px 6px rgba(black, 0.2);
+
+  background-color: rgba(white, 0.75);
+
+  user-select: none;
+  cursor: pointer;
+  box-sizing: border-box;
+
+  &.button-large {
+    padding: 16px 24px;
+  }
+
+  &.button-full-width {
+    width: 100%;
+    text-align: center;
+  }
+}

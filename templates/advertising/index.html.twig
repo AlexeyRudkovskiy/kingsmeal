@@ -1,0 +1,45 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}{{ 'Advertising index' | trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'Advertisements' | trans }}</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="id-column">{{ 'ID' | trans }}</th>
+                <th style="width: 250px;">{{ 'Title' | trans }}</th>
+                <th>{{ 'Description' | trans }}</th>
+                <th class="actions-column pull-right">{{ 'Actions' | trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for advertising in advertisings %}
+            <tr>
+                <td>{% if advertising.fileName != null %}<img src="{{ asset('uploads/photos/' ~ advertising.fileName) }}" class="small-image" />{% endif %}</td>
+                <td>{{ advertising.title }}</td>
+                <td>{{ advertising.description }}</td>
+                <td class="actions-column pull-right">
+                    <div class="buttons-group button-group-pull-right">
+                        <a href="{{ path('advertising_show', {'id': advertising.id}) }}" class="button button-small">{{ 'Show' | trans }}</a>
+                        <a href="{{ path('advertising_edit', {'id': advertising.id}) }}" class="button button-small">{{ 'Edit' | trans }}</a>
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">
+                    <div class="alert">
+                        <div class="alert-message">{{ 'No ads found' | trans }}</div>
+                        <div class="alert-actions">
+                            <a href="{{ url('advertising_new') }}" class="button">{{ 'Create a first Ads?' | trans }}</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

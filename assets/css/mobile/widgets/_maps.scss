@@ -1,0 +1,33 @@
+.maps-container {
+  display: flex;
+  flex-direction: column;
+  min-height: unset;
+
+  .map-target {
+    position: static;
+    height: 450px;
+    min-height: unset;
+  }
+
+  .container {
+    position: static;
+
+    .map-overlay {
+      position: static;
+      right: 0;
+      top: 0;
+      border-radius: 0;
+      box-shadow: unset;
+      background-color: #212121;
+      padding: 24px;
+      color: rgba(white, 0.55);
+      box-sizing: border-box;
+      width: 100%;
+
+      .headline, .line {
+        color: rgba(white, 0.55);
+      }
+    }
+  }
+
+}

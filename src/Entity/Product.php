@@ -178,4 +178,33 @@ class Product
         return implode(', ', $categories);
     }
 
+    public function getPhotoUrl()
+    {
+        return '/uploads/photos/' . $this->getPhotoFilename();
+    }
+
+    public function getSizes()
+    {
+        return $this->getVariants()
+            ->map(function (ProductVariant $productVariant) {
+                return [
+                    'id' => $productVariant->getId(),
+                    'name' => $productVariant->getName(),
+                    'price' => $productVariant->getPrice()
+                ];
+            })
+            ->toArray();
+    }
+
+    public function getArray()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'sizes' => $this->getSizes(),
+            'image' => $this->getPhotoUrl(),
+            'price' => $this->getPrice()
+        ];
+    }
+
 }

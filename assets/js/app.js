@@ -8,19 +8,45 @@
 // any CSS you require will output into a single css file (app.css in this case)
 import React from "react";
 import {render} from 'react-dom'
-import Component1 from "./component1.js";
-import Component2 from "./component2.js";
+import AddToCartComponent from "./AddToCartComponent";
+import {Provider} from "react-redux";
+import {initCart} from "./helpers/show-cart";
+import store from './redux/store'
 
-require('../css/app.css');
+import tabsWidget from './widgets/tabs'
+import mapWidget from './widgets/map'
+import {scrollPromos} from "./helpers/scroll-promos";
+import showMenu from "./helpers/show-menu";
+import showPhones from "./helpers/show-phones";
 
-const component1Target = document.querySelector('.component1');
-const component2Target = document.querySelector('.component2');
+require('../css/app.scss');
 
-if (component1Target !== null) {
-    render(<Component1 />, component1Target);
-}
+(function () {
+    const addToCartWidgets = document.querySelectorAll('.add-to-cart-widget');
 
-if (component2Target !== null) {
-    render(<Component2 />, component2Target);
-}
+    for (const addToCartWidget of addToCartWidgets) {
+        const props = JSON.parse(addToCartWidget.getAttribute('data-props'));
+
+        render(<Provider store={store}><AddToCartComponent {...props} /></Provider>, addToCartWidget);
+    }
+
+    initCart();
+    tabsWidget();
+    mapWidget();
+    scrollPromos();
+    showMenu();
+    showPhones();
+
+})();
+
+// const component1Target = document.querySelector('.component1');
+// const component2Target = document.querySelector('.component2');
+//
+// if (component1Target !== null) {
+//     render(<Component1 />, component1Target);
+// }
+//
+// if (component2Target !== null) {
+//     render(<Component2 />, component2Target);
+// }
 

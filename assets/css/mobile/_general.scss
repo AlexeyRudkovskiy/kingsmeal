@@ -1,0 +1,7 @@
+.mobile-only {
+  display: block;
+
+  &.hidden {
+    display: none;
+  }
+}

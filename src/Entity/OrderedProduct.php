@@ -17,13 +17,15 @@ class OrderedProduct
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Product", cascade={"persist", "remove"})
+     * ORM\OneToOne(targetEntity="App\Entity\Product", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Product", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $product;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\ProductVariant", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\ProductVariant", cascade={"persist", "remove"})
+     * ORM\OneToOne(targetEntity="App\Entity\ProductVariant", cascade={"persist", "remove"})
      */
     private $variant;
 
@@ -106,6 +108,13 @@ class OrderedProduct
         $this->_order = $_order;
 
         return $this;
+    }
+
+    public function calculatePrice()
+    {
+        $price = $this->variant !== null ? $this->getVariant()->getPrice() : $this->getProduct()->getPrice();
+        $price = $this->getQuantity() * $price;
+        $this->setPrice($price);
     }
 
 }

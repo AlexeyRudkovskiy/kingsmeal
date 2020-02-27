@@ -1,18 +1,18 @@
 {% extends 'admin.html.twig' %}
 
-{% block title %}Product index{% endblock %}
+{% block title %}{{ 'Product :: KingsMeal' | trans}}{% endblock %}
 
 {% block body %}
-    <h1>Товары</h1>
+    <h1>{{ 'Product' | trans }}</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th width="50">Id</th>
-                <th>Название</th>
-                <th width="125" class="pull-right">Цена</th>
-                <th width="200">Категории</th>
-                <th width="225" class="pull-right">Действия</th>
+                <th width="50">{{'ID'|trans}}</th>
+                <th>{{'Name'|trans}}</th>
+                <th width="125" class="pull-right">{{'Price'|trans}}</th>
+                <th width="200">{{'Categories'|trans}}</th>
+                <th width="225" class="pull-right">{{'Actions'|trans}}</th>
             </tr>
         </thead>
         <tbody>
@@ -20,12 +20,12 @@
             <tr>
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
-                <td class="pull-right">{{ "%.2f" | format(product.price) }} грн</td>
+                <td class="pull-right">{{ "%.2f" | format(product.price) }} {{'UAH'|trans}}</td>
                 <td>{{ product.categoriesNames }}</td>
                 <td class="pull-right">
                     <div class="buttons-group button-group-pull-right">
-                        <a href="{{ path('product_show', {'id': product.id}) }}" class="button button-small">Показать</a>
-                        <a href="{{ path('product_edit', {'id': product.id}) }}" class="button button-small">Редактировать</a>
+                        <a href="{{ path('product_show', {'id': product.id}) }}" class="button button-small">{{'Show'|trans}}</a>
+                        <a href="{{ path('product_edit', {'id': product.id}) }}" class="button button-small">{{'Edit'|trans}}</a>
                     </div>
                 </td>
             </tr>
@@ -33,10 +33,10 @@
             <tr>
                 <td colspan="4">
                     <div class="alert">
-                        <div class="alert-message">Товары не найдены</div>
+                        <div class="alert-message">{{'Product not found'|trans}}</div>
                         <div class="alert-actions">
                             <div class="buttons-group">
-                                <a href="{{ url('product_new') }}" class="button">Создать продукт</a>
+                                <a href="{{ url('product_new') }}" class="button">{{ 'Create first product?' | trans }}</a>
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,24 @@
+.popup-container {
+  &.popup-container-compact {
+    .popup-content-container {
+      width: 100%;
+    }
+  }
+
+  .popup-content-container {
+    width: 100%;
+
+    .popup-header {
+      padding-left:  24px;
+      padding-right: 24px;
+
+      .popup-header-label {
+        padding: 24px 0;
+      }
+    }
+
+    .popup-content {
+      padding: 24px;
+    }
+  }
+}

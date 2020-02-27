@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Repository\CategoryRepository;
 use App\Repository\OrderRepository;
 use App\Repository\ProductRepository;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 class KingsMealService
 {
@@ -17,6 +18,8 @@ class KingsMealService
     private $ordersRepository;
     /** @var CategoryRepository */
     private $categoryRepository;
+    /** @var string */
+    private $settingsPath;
 
     /** @var int  */
     private $productsCount = -1;
@@ -30,11 +33,20 @@ class KingsMealService
     /** @var int  */
     private $categoriesCount = -1;
 
-    public function __construct(ProductRepository $productRepository, OrderRepository $orderRepository, CategoryRepository $categoryRepository)
+    /** @var array */
+    private $settings = null;
+
+    public function __construct(
+        ProductRepository $productRepository,
+        OrderRepository $orderRepository,
+        CategoryRepository $categoryRepository,
+        string $settingsPath
+    )
     {
         $this->productRepository = $productRepository;
         $this->ordersRepository = $orderRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->settingsPath = $settingsPath;
     }
 
     public function productsCount()
@@ -69,6 +81,31 @@ class KingsMealService
         }
 
         return $this->categoriesCount;
+    }
+
+    public function getSettings()
+    {
+        if ($this->settings === null) {
+            $this->settings = json_decode(file_get_contents($this->settingsPath), true);
+        }
+
+        return $this->settings;
+    }
+
+    public function getSetting(string $path)
+    {
+        $keys = explode('.', $path);
+        $value = $this->getSettings();
+
+        foreach ($keys as $key) {
+            if (!array_key_exists($key, $value)) {
+                return null;
+            }
+
+            $value = $value[$key];
+        }
+
+        return $value;
     }
 
 }

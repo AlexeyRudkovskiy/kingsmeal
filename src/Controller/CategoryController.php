@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Contracts\WithUpladableFile;
 use App\Entity\Category;
 use App\Entity\Product;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use App\Traits\UploadFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,8 +17,11 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/dashboard/categories")
  */
-class CategoryController extends AbstractController
+class CategoryController extends AbstractController implements WithUpladableFile
 {
+
+    use UploadFile;
+
     /**
      * @Route("/", name="category_index", methods={"GET"})
      */
@@ -109,39 +114,32 @@ class CategoryController extends AbstractController
         return $this->redirectToRoute('category_index');
     }
 
-    /** todo: move this code to service */
-    /**
-     * @param Category $category
-     * @param \Symfony\Component\Form\FormInterface $form
-     */
-    public function uploadPhoto(Category $category, \Symfony\Component\Form\FormInterface $form): void
+    public function getFileFieldName()
     {
-        /** @var UploadedFile $previewFile */
-        $previewFile = $form['imageFilename']->getData();
-
-        if ($previewFile !== null) {
-            $directory = $this->getParameter('previews_directory');
-            $this->removeImageIfExists($category);
-            $originalName = pathinfo($previewFile->getClientOriginalName(), PATHINFO_FILENAME);
-            $newFilename = sha1($originalName) . '-' . uniqid() . '.' . $previewFile->guessExtension();
-
-            $previewFile->move($directory, $newFilename);
-
-            $category->setImageFilename($newFilename);
-        }
+        return 'imageFilename';
     }
 
     /**
-     * @param Category $category
+     * @param Category $object
+     * @return string
      */
-    private function removeImageIfExists(Category $category) {
-        $photoFilename = $category->getImageFilename();
-        $directory = $this->getParameter('previews_directory');
-        $absoluteFilePath = $directory . '/' . $photoFilename;
+    public function getCurrentLocation($object)
+    {
+        return $object->getImageFilename();
+    }
 
-        if (is_file($absoluteFilePath)) {
-            unlink($absoluteFilePath);
-        }
+    /**
+     * @param string $path
+     * @param Category $object
+     */
+    public function updateCurrentLocation(string $path, $object)
+    {
+        $object->setImageFilename($path);
+    }
+
+    public function getEntityTypeIdentifier(): string
+    {
+        return Category::class;
     }
 
 }

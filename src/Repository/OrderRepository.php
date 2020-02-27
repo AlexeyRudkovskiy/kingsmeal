@@ -32,7 +32,8 @@ class OrderRepository extends ServiceEntityRepository
 
     public function findWithStatus(PaginatorInterface $paginator, Request $request, string $status = null)
     {
-        $query = $this->createQueryBuilder('o');
+        $query = $this->createQueryBuilder('o')
+            ->orderBy('o.id', 'desc');
 
         if ($status === null) {
             $query = $query
@@ -46,7 +47,7 @@ class OrderRepository extends ServiceEntityRepository
                 ->getResult();
         }
 
-        return $paginator->paginate($query, $request->query->getInt('page', 1), 1);
+        return $paginator->paginate($query, $request->query->getInt('page', 1), 20);
     }
 
     public function getUnprocessedCount()

@@ -1,10 +1,10 @@
 {% extends 'product/_template.html.twig' %}
 
-{% block title %}{{ product.name }} :: Редактирование варианта товара :: King'sMeal{% endblock %}
+{% block title %}{{ 'Product - %name% - Variants - %variant% :: KingsMeal' | trans({'%name%':product.name, '%variant%': product_variant.name}) }}{% endblock %}
 {% block content_classes "paddingsless" %}
 
 {% block product_content %}
 
-    {{ include('product_variant/_form.html.twig', {'button_label': 'Сохранить'}) }}
+    {{ include('product_variant/_form.html.twig', {'button_label': 'Update'}) }}
 
 {% endblock %}

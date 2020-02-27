@@ -1,6 +1,6 @@
 {% extends 'admin.html.twig' %}
 
-{% block title %}Edit User{% endblock %}
+{% block title %}{{ 'Editing User :: KingsMeal' | trans }}{% endblock %}
 
 {% block body %}
     {{ include('user/_form.html.twig', {'button_label': 'Обновить'}) }}

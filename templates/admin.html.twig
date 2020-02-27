@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Admin Dashboard{% endblock %}</title>
+    <title>{% block title %}{{'Dashboard :: KingsMeal' | trans}}{% endblock %}</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap&subset=cyrillic" rel="stylesheet">
 
     {{ encore_entry_link_tags('admin') }}
@@ -13,57 +13,70 @@
 <div class="grid admin-container">
     <div class="admin-sidebar">
         <div class="admin-section-header">
-            <span class="project-name">KingsMeal</span>
+            <span class="project-name">{{'KingsMeal' | trans}}</span>
         </div>
         <nav class="nav-section">
-            <span class="nav-header">Товары</span>
+            <span class="nav-header">{{ 'Products' | trans }}</span>
             {% apply spaceless %}
             <a href="{{ path('product_index') }}" class="nav-item {% if current_path == 'product_index' %}active{% endif %}">
-                Все товары
+                {{'All Products'|trans}}
                 {% if kingsmeal.productsCount > 0 %}<span class="nav-item-badge">{{ kingsmeal.productsCount }}</span>{% endif %}
             </a>
             {% endapply %}
-            <a href="{{ path('product_new') }}" class="nav-item {% if current_path == 'product_new' %}active{% endif %}">Добавить товар</a>
+            <a href="{{ path('product_new') }}" class="nav-item {% if current_path == 'product_new' %}active{% endif %}">{{'Create a Product'|trans}}</a>
         </nav>
         <nav class="nav-section">
-            <span class="nav-header">Заказы</span>
+            <span class="nav-header">{{'Orders'|trans}}</span>
             {% apply spaceless %}
             <a href="{{ path('order_index') }}" class="nav-item {% if current_path == 'order_index' %}active{% endif %}">
-                Все заказы
+                {{'All Orders'|trans}}
                 {% if kingsmeal.ordersCount > 0 %}<span class="nav-item-badge">{{ kingsmeal.ordersCount }}</span>{% endif %}
             </a>
             {% endapply %}
             {% apply spaceless %}
             <a href="{{ path('order_unprocessed') }}" class="nav-item {% if current_path == 'order_unprocessed' %}active{% endif %}">
-                Новые заказы
+                {{'New Orders'|trans}}
                 {% if kingsmeal.unprocessedOrdersCount > 0 %}<span class="nav-item-badge">{{ kingsmeal.unprocessedOrdersCount }}</span>{% endif %}
             </a>
             {% endapply %}
         </nav>
         <nav class="nav-section">
-            <span class="nav-header">Категории</span>
+            <span class="nav-header">{{'Categories'|trans}}</span>
             {% apply spaceless %}
             <a href="{{ path('category_index') }}" class="nav-item {% if current_path == 'category_index' %}active{% endif %}">
-                Все категории
+                {{'All Categories'|trans}}
                 {% if kingsmeal.categoriesCount > 0 %}<span class="nav-item-badge">{{ kingsmeal.categoriesCount }}</span>{% endif %}
             </a>
             {% endapply %}
-            <a href="{{ path('category_new') }}" class="nav-item {% if current_path == 'category_new' %}active{% endif %}">Добавить категорию</a>
+            <a href="{{ path('category_new') }}" class="nav-item {% if current_path == 'category_new' %}active{% endif %}">{{'Create a Category'|trans}}</a>
         </nav>
         <nav class="nav-section">
-            <span class="nav-header">Пользователи</span>
+            <span class="nav-header">{{'Users'|trans}}</span>
             {% apply spaceless %}
             <a href="{{ path('user_index') }}" class="nav-item {% if current_path == 'user_index' %}active{% endif %}">
-                Все пользователи
+                {{'All Users'|trans}}
             </a>
             {% endapply %}
-            <a href="{{ path('user_new') }}" class="nav-item {% if current_path == 'user_new' %}active{% endif %}">Добавить пользователя</a>
+            <a href="{{ path('user_new') }}" class="nav-item {% if current_path == 'user_new' %}active{% endif %}">{{'Create an User'|trans}}</a>
         </nav>
         <nav class="nav-section">
-            <span class="nav-header">testing</span>
-            <a href="javascript:" class="nav-item">Item 1</a>
-            <a href="javascript:" class="nav-item">Item 2<span class="nav-item-badge">10+</span></a>
-            <a href="javascript:" class="nav-item">Item 3</a>
+            <span class="nav-header">{{'Other'|trans}}</span>
+            {% apply spaceless %}
+                <a href="{{ path('advertising_index') }}" class="nav-item {% if current_path == 'advertising_index' %}active{% endif %}">
+                    {{'All Ads'|trans}}
+                </a>
+            {% endapply %}
+            <a href="{{ path('advertising_new') }}" class="nav-item {% if current_path == 'advertising_new' %}active{% endif %}">{{'Create an Ads'|trans}}</a>
+            {% apply spaceless %}
+            <a href="{{ path('photo_index') }}" class="nav-item {% if current_path == 'photo_index' %}active{% endif %}">
+                {{'Photos'|trans}}
+            </a>
+            {% endapply %}
+            {% apply spaceless %}
+            <a href="{{ path('website_settings') }}" class="nav-item {% if current_path == 'website_settings' %}active{% endif %}">
+                {{'Settings'|trans}}
+            </a>
+            {% endapply %}
         </nav>
     </div>
     <div class="admin-content">

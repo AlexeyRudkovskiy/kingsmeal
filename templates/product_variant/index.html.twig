@@ -1,6 +1,6 @@
 {% extends 'product/_template.html.twig' %}
 
-{% block title %}{{ product.name }} :: Варианты товара :: King'sMeal{% endblock %}
+{% block title %}{{ 'Product - %name% - Variants :: KingsMeal' | trans({'%name%': product.name}) }}{% endblock %}
 {% block content_classes "paddingsless" %}
 
 {% block product_content %}
@@ -8,9 +8,9 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Название</th>
-                <th class="pull-right" style="width: 100px;">Цена</th>
-                <th class="pull-right" style="width: 220px;">Действия</th>
+                <th>{{'Name' | trans}}</th>
+                <th class="pull-right" style="width: 100px;">{{'Price' | trans}}</th>
+                <th class="pull-right" style="width: 220px;">{{'Actions' | trans}}</th>
             </tr>
         </thead>
         <tbody>
@@ -20,8 +20,8 @@
                 <td class="pull-right">{{ product_variant.price }}</td>
                 <td class="pull-right">
                     <div class="buttons-group button-group-pull-right">
-                        <a href="{{ path('product_variant_delete', {'product_id': 1, 'id': product_variant.id}) }}" class="button button-small">удалить</a>
-                        <a href="{{ path('product_variant_edit', {'product_id': 1, 'id': product_variant.id}) }}" class="button button-small">редактировать</a>
+                        <a href="{{ path('product_variant_delete', {'product_id': 1, 'id': product_variant.id}) }}" class="button button-small">{{'Delete' | trans}}</a>
+                        <a href="{{ path('product_variant_edit', {'product_id': 1, 'id': product_variant.id}) }}" class="button button-small">{{'Edit' | trans}}</a>
                     </div>
                 </td>
             </tr>
@@ -29,19 +29,14 @@
             <tr>
                 <td colspan="3">
                     <div class="alert">
-                        <div class="alert-message">Варианты товаров не найдены</div>
+                        <div class="alert-message">{{ 'Variants not found' | trans}}</div>
                         <div class="alert-actions button-small">
-                            <a href="{{ url('product_variant_new', {product_id: product.id}) }}" class="button">Создать первый вариант?</a>
+                            <a href="{{ url('product_variant_new', {product_id: product.id}) }}" class="button">{{ 'Create first variant?' | trans }}</a>
                         </div>
                     </div>
                 </td>
             </tr>
         {% endfor %}
-        {% if product_variants.count > 0 %}
-            <tr>
-                <td colspan="3" class="pull-right"><a href="{{ url('product_variant_new', { product_id: product.id }) }}" class="button">Создать</a></td>
-            </tr>
-        {% endif %}
         </tbody>
     </table>
 

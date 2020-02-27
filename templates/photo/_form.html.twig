@@ -1,0 +1,14 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="vertical-spacer"></div>
+        <button class="button"><span class="icon">💾</span><span>{{ button_label|default('Update')|trans }}</span></button>
+{{ form_end(form) }}
+
+{% if photo != null and photo.id > 0 %}
+<div class="vertical-spacer"></div>
+<form method="post" action="{{ path('photo_delete', {'id': photo.id}) }}" onsubmit="return confirm('{{ 'Are you sure you want to delete this photo?' | trans }}');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ photo.id) }}">
+    <button class="button">{{ 'Delete' | trans }}</button>
+</form>
+{% endif %}

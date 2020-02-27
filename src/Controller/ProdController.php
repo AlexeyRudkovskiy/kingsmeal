@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Entity\User;
+use App\Repository\AdvertisingRepository;
+use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,10 +15,19 @@ class ProdController extends AbstractController
 
     /**
      * @Route("/")
+     * @param CategoryRepository $categoryRepository
+     * @param AdvertisingRepository $advertisingRepository
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index2()
+    public function index2(
+        CategoryRepository $categoryRepository,
+        AdvertisingRepository $advertisingRepository
+    )
     {
-        return $this->render('prod/index2.html.twig', [  ]);
+        return $this->render('prod/index2.html.twig', [
+            'categories' => $categoryRepository->findAll(),
+            'advertisings' => $advertisingRepository->findAll()
+        ]);
     }
 
     /**

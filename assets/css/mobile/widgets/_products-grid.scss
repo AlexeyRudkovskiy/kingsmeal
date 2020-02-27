@@ -1,0 +1,20 @@
+.products-grid {
+
+  .product {
+    width: 100%;
+
+    &:nth-child(2n+1) {
+      margin-right: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .product-photo {
+      width: 75px;
+      height: 75px;
+    }
+  }
+
+}

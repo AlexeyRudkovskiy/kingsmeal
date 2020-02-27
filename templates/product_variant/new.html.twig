@@ -1,6 +1,6 @@
 {% extends 'product/_template.html.twig' %}
 
-{% block title %}{{ product.name }} :: Создание варианта товара :: King'sMeal{% endblock %}
+{% block title %}{{ 'Product - %name% - Creating variant :: KingsMeal' | trans({'%name%': product.name}) }}{% endblock %}
 {% block content_classes "paddingsless" %}
 
 {% block product_content %}

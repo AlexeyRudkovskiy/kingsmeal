@@ -12,7 +12,7 @@
 
 {% block submit_row -%}
     <div{% with {attr: row_attr|merge({class: (row_attr.class|default('') ~ ' form-group')|trim})} %}{{ block('attributes') }}{% endwith %}>
-        {{- form_widget(form) -}} 32
+        {{- form_widget(form) -}}
     </div>
 {%- endblock submit_row %}
 

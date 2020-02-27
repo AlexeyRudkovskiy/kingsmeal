@@ -8,9 +8,9 @@
                 <h2>{{ product.name }}</h2>
             </div>
             <nav class="details-container-navigation">
-                <a href="{{ url('product_show', { id: product.id }) }}" {% if current_path == 'product_show' %} class="active" {% endif %}>Основная информация</a>
-                <a href="{{ url('product_edit', { id: product.id }) }}" {% if current_path == 'product_edit' %} class="active" {% endif %}>Редактирование товара</a>
-                <a href="{{ url('product_variant_index', { product_id: product.id }) }}" {% if current_path == 'product_variant_index' or current_path == 'product_variant_new' or current_path == 'product_variant_edit' %} class="active" {% endif %}>Варианты товара</a>
+                <a href="{{ url('product_show', { id: product.id }) }}" {% if current_path == 'product_show' %} class="active" {% endif %}>{{'General Information' | trans}}</a>
+                <a href="{{ url('product_edit', { id: product.id }) }}" {% if current_path == 'product_edit' %} class="active" {% endif %}>{{'Edit Product' | trans}}</a>
+                <a href="{{ url('product_variant_index', { product_id: product.id }) }}" {% if current_path == 'product_variant_index' or current_path == 'product_variant_new' or current_path == 'product_variant_edit' %} class="active" {% endif %}>{{'Product Variants' | trans}}</a>
             </nav>
         </div>
         <div class="details-container-content">

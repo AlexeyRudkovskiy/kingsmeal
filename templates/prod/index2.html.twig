@@ -1,14 +1,107 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProdController!{% endblock %}
+{% block title %}{{ 'Homepage - KingsMeal' | trans }}{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
 
-    <div class="component1"></div>
-    <div class="component2"></div>
+    <a href="javascript:" id="promos"></a>
+    <div class="content-section">
+        <div class="content-section-headline-container">
+            <h1 class="content-section-headline">Акции</h1>
+        </div>
+        <div class="promo-grid">
+            {% for ads in advertisings %}
+                <div class="promo-container {% if loop.first %} active {% endif %}">
+                    <img src="{{ ads.imageUrl }}" class="promo-image" />
+                    <div class="promo-title">{{ ads.title }}</div>
+                    <div class="promo-description">{{ ads.description }}</div>
+                </div>
+            {% endfor %}
+            <div class="mobile-only scroll-to-left"><img src="{{ asset('/assets/icons/scroll-left@2x.png') }}" /></div>
+            <div class="mobile-only scroll-to-right"><img src="{{ asset('/assets/icons/scroll-right@2x.png') }}" /></div>
+        </div>
+    </div>
 
+    <a href="javascript:" id="menu"></a>
+    <div class="content-section">
+        <div class="content-section-headline-container">
+            <h1 class="content-section-headline">Наше меню</h1>
+        </div>
+        <!-- Categories -->
+        <div class="categories-list" data-tabs>
+            {% for category in categories %}
+                <div class="category-item" data-target="#category-content-{{ category.id }}" style="background-image: url({{ asset(category.imageUrl) }})"><span class="label">{{ category.name }}</span></div>
+            {% endfor %}
+        </div>
+        <!-- End Categories -->
+        {% for category in categories %}
+            <div id="category-content-{{ category.id }}" class="hidden">
+                <div class="products-grid">
+                    {% for product in category.products %}
+                        <div class="product">
+                            <div class="product-photo"><img src="{{ asset(product.photoUrl) }}" /></div>
+                            <div class="product-description">
+                                <span class="product-name">{{ product.name }}</span>
+                                <p class="product-description-text">{{ product.description }}</p>
+                                <div class="add-to-cart-widget" data-props="{{ product.array | json_encode }}"></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="gg-container">
+                    <div class="gallery gg-box dark" id="category-gallery-{{ category.id }}">
+                        {% for photo in category.photos %}
+                            <img src="{{ photo.photoUrl }}" />
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <a href="javascript:" id="location"></a>
+    <div class="maps-container">
+        <div id="map-target" class="map-target"></div>
+        <div class="container">
+            <div class="map-overlay">
+                <div class="headline">Контакты</div>
+                <div class="line">Адрес: {{ kingsmeal.getSetting('address') }}</div>
+                {% for phone in kingsmeal.getSetting('phones') %}
+                    <a href="tel:{{ phone }}" class="line">{{ phone }}</a>
+                {% endfor %}
+                <div class="headline">Доставка</div>
+                <div class="line">Часы работы: {{ kingsmeal.getSetting('delivery.workTime') }}</div>
+                <div class="line">Стоимость доставки: {{ kingsmeal.getSetting('delivery.price') }}</div>
+                <div class="line">Время доставки: {{ kingsmeal.getSetting('delivery.time') }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile-only cart-floating-button cart-icon">
+        <img src="{{ asset('/assets/icons/shopping_cart-dark@2x.png') }}" />
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('libs/grid-gallery/css/grid-gallery.min.css') }}" />
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('libs/grid-gallery/js/grid-gallery.min.js') }}"></script>
+
+    <script>
+        window.cardInstructions = '{{- kingsmeal.getSetting('cardInstructions')|e('js') -}}';
+
+        window.addEventListener('load', function () {
+            {% for category in categories %}
+            gridGallery({
+                selector: "#category-gallery-{{ category.id }}",
+                darkMode: true,
+                gapLength: 4,
+                layout: "horizontal"
+            });
+            {% endfor %}
+        });
+    </script>
 {% endblock %}

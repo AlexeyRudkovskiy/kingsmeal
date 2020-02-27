@@ -1,0 +1,26 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}{{ 'Advertising' | trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'Ads' | trans }}</h1>
+
+    <table class="table details-table">
+        <tbody>
+            <tr>
+                <th>{{ 'ID' | trans }}</th>
+                <td>{{ advertising.id }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'Description' | trans }}</th>
+                <td>{{ advertising.description }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'Image' | trans }}</th>
+                <td>{% if advertising.fileName != null %}<img src="{{ asset('uploads/photos/' ~ advertising.fileName) }}" style="width: 200px;" />{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {{ include('advertising/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="a0ece954-f846-4cf1-93a7-d234fb1a4ea4" name="kingsmeal" url="http://35.207.74.43">
+        <fileTransfer host="35.207.74.43" port="22" privateKey="C:\Users\alexe\.ssh\id_rsa" rootFolder="/var/www/html" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -9,6 +9,9 @@ use Knp\Component\Pager\Pagination\PaginationInterface;
 abstract class Converter
 {
 
+    /** @var array  */
+    private $dependencies = [];
+
     public abstract function convert($object): array;
 
     /**
@@ -38,6 +41,29 @@ abstract class Converter
         return array_map(function ($item) {
             return $this->convert($item);
         }, $items);
+    }
+
+    public function getDependencies()
+    {
+        return [];
+    }
+
+    /**
+     * @param $key
+     * @return Converter
+     */
+    protected function getDependency($key)
+    {
+        return $this->dependencies[$key];
+    }
+
+    /**
+     * @param $key
+     * @param Converter $object
+     */
+    public function saveDependency($key, Converter $object)
+    {
+        $this->dependencies[$key] = $object;
     }
 
 }

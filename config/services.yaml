@@ -29,5 +29,11 @@ services:
         class: App\Services\ConverterService
         factory: '@App\Factories\ConverterFactory'
 
+    App\Services\KingsMealService:
+        shared: false
+        class: App\Services\KingsMealService
+        arguments:
+            $settingsPath: '%kernel.project_dir%/var/settings.json'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

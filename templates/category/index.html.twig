@@ -7,8 +7,8 @@
         <thead>
             <tr>
                 <th style="width: 75px;">&nbsp;</th>
-                <th>Название</th>
-                <th style="width: 215px;" class="pull-right">Действия</th>
+                <th>{{ 'Title' | trans }}</th>
+                <th style="width: 215px;" class="pull-right">{{ 'Actions' | trans }}</th>
             </tr>
         </thead>
         <tbody>
@@ -18,8 +18,8 @@
                 <td>{{ category.name }}</td>
                 <td class="pull-right">
                     <div class="buttons-group button-group-pull-right">
-                        <a href="{{ path('category_show', {'id': category.id}) }}" class="button button-small">Показать</a>
-                        <a href="{{ path('category_edit', {'id': category.id}) }}" class="button button-small">Редактировать</a>
+                        <a href="{{ path('category_show', {'id': category.id}) }}" class="button button-small">{{ 'Show' | trans }}</a>
+                        <a href="{{ path('category_edit', {'id': category.id}) }}" class="button button-small">{{ 'Edit' | trans }}</a>
                     </div>
                 </td>
             </tr>
@@ -27,9 +27,9 @@
             <tr>
                 <td colspan="3">
                     <div class="alert">
-                        <div class="alert-message">Не найдено ни одной категории</div>
+                        <div class="alert-message">{{ 'Can not find any category' | trans }}</div>
                         <div class="alert-actions">
-                            <a href="{{ url('category_new') }}" class="button">Создать первую?</a>
+                            <a href="{{ url('category_new') }}" class="button">{{ 'Create first category?' | trans }}</a>
                         </div>
                     </div>
                 </td>

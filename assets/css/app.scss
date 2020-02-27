@@ -1,0 +1,42 @@
+@import "reset";
+@import "general";
+
+@import "grid";
+@import "navigation-bar";
+@import "header";
+
+@import "content-section";
+
+/// Widgets:
+@import "widgets/categories-list";
+@import "widgets/products-grid";
+@import "widgets/button";
+@import "widgets/popup";
+@import "widgets/cart";
+@import "widgets/cart-product-item";
+@import "widgets/promo";
+@import "widgets/maps";
+@import "widgets/gallery";
+
+@import "widgets/form";
+
+@media screen and (max-width: 480px) {
+    @import "mobile/general";
+    @import "mobile/grid";
+    @import "mobile/navigation-bar";
+    @import "mobile/header";
+    @import "mobile/content-section";
+    @import "mobile/widgets/categories-list";
+    @import "mobile/widgets/products-grid";
+    @import "mobile/widgets/maps";
+    @import "mobile/widgets/floating-button";
+    @import "mobile/widgets/popup";
+    @import "mobile/widgets/button";
+    @import "mobile/widgets/cart-product-item";
+    @import "mobile/widgets/promo";
+    @import "mobile/widgets/menu";
+}
+
+body {
+    margin: 0;
+}

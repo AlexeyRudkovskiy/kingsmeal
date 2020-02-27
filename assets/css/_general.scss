@@ -1,0 +1,32 @@
+@import "variables";
+
+html {
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  background-color: $background-color;
+  background-image: url(/assets/icons/wood-dark.jpg);
+  color: $text-color;
+
+  &.hide-overflow {
+    overflow-y: hidden;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.clear {
+  clear: both;
+}
+
+.offset-top {
+  margin-top: 16px;
+}
+
+.mobile-only {
+  display: none;
+}

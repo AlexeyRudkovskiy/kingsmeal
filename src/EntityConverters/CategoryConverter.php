@@ -6,6 +6,7 @@ namespace App\EntityConverters;
 
 use App\Contracts\Converter;
 use App\Entity\Category;
+use App\Entity\Product;
 
 class CategoryConverter extends Converter
 {
@@ -17,7 +18,9 @@ class CategoryConverter extends Converter
     public function convert($object): array
     {
         return [
-            'name' => $object->getName()
+            'id' => $object->getId(),
+            'name' => $object->getName(),
+            'image' => $object->getImageUrl()
         ];
     }
 

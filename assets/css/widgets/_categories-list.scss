@@ -1,0 +1,53 @@
+@import "../variables";
+
+.categories-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  .category-item {
+    width: 231px;
+    height: 310px;
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 3px 6px rgba(black, 0.25);
+    background-position: center center;
+    position: relative;
+    background-size: cover;
+    flex-shrink: 0;
+    flex-grow: 0;
+    margin-bottom: 24px;
+    user-select: none;
+    transition: 0.1s all;
+
+    &.compact {
+      height: 80px;
+
+      --scale-factor: 1.25;
+
+      &:hover, &.active {
+        transform: scale(var(--scale-factor));
+        box-shadow: 0 6px 12px black;
+      }
+
+      &:hover {
+        --scale-factor: 1.15;
+      }
+
+      &.active {
+        --scale-factor: 1.25;
+      }
+    }
+
+    .label {
+      font-size: 18px;
+      text-shadow: 0 3px 6px black;
+      font-weight: bold;
+      text-transform: uppercase;
+      position: absolute;
+      left: 16px;
+      bottom: 16px;
+    }
+  }
+}

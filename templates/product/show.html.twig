@@ -1,6 +1,6 @@
 {% extends 'product/_template.html.twig' %}
 
-{% block title %}{{ product.name }} :: King'sMeal{% endblock %}
+{% block title %}{{ 'Product - %name% :: KingsMeal' | trans({'%name%': product.name}) }}{% endblock %}
 {% block content_classes "paddingsless" %}
 
 {% block product_content %}
@@ -8,32 +8,35 @@
     <table class="table details-table">
         <tbody>
         <tr>
-            <th>Id</th>
+            <th>{{'ID'|trans}}</th>
             <td>{{ product.id }}</td>
         </tr>
         <tr>
-            <th>Название</th>
+            <th>{{'Name'|trans}}</th>
             <td>{{ product.name }}</td>
         </tr>
         <tr>
-            <th>Цена</th>
+            <th>{{'Price'|trans}}</th>
             <td>{{ product.price | number_format(2) }} грн</td>
         </tr>
         <tr>
-            <th>Описание</th>
+            <th>{{'Description'|trans}}</th>
             <td>{{ product.description }}</td>
         </tr>
         <tr>
-            <th>Фотография</th>
+            <th>{{'Image'|trans}}</th>
             <td><img src="{{ asset('uploads/photos/' ~ product.photoFilename) }}" width="125" /></td>
         </tr>
         <tr>
-            <th>Категории</th>
+            <th>{{'Categories'|trans}}</th>
             <td>{{ product.categoriesNames }}</td>
         </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('product_index') }}" class="button"><i class="icon">📃</i>Вернуться к списку товаров</a>
+    {% include 'product/_delete_form.html.twig' with { 'product': product } %}
+    <div style="margin-top: 16px;"></div>
+
+    <a href="{{ path('product_index') }}" class="button"><i class="icon">📃</i>{{ 'Back to Products' | trans }}</a>
 
 {% endblock %}

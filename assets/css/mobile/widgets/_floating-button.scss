@@ -1,0 +1,29 @@
+@import "../../variables";
+
+.cart-floating-button {
+  position: fixed;
+  bottom: 26px;
+  right:  26px;
+
+  z-index: 9999;
+
+  background-color: #F2BE1D;
+  padding: 15px;
+  border-radius: 30px;
+  box-shadow: 0 3px 6px rgba(black, 0.2);
+
+  &[data-badge] {
+    &::after {
+      content: attr(data-badge);
+      position: absolute;
+      top:   8px;
+      right: 10px;
+      background-color: $red-color;
+      display: inline-block;
+      padding: 2px 4px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+  }
+}
+

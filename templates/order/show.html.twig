@@ -1,46 +1,46 @@
 {% extends 'admin.html.twig' %}
 
-{% block title %}Order{% endblock %}
+{% block title %}{{'Order - %orderId% :: KingsMeal'|trans({'%orderId%': order.id})}}{% endblock %}
 
 {% block body %}
-    <h1>Заказ</h1>
+    <h1>{{'Order'|trans}}</h1>
 
     <table class="table details-table details-table-large">
         <tbody>
             <tr>
-                <th>Номер заказа</th>
+                <th>{{'Order Number'|trans}}</th>
                 <td>{{ order.id }}</td>
             </tr>
             <tr>
-                <th>Способ оплаты</th>
-                <td>{% if order.paymentMethod == 'card' %}Картой{% else %}Курьеру{% endif %}</td>
+                <th>{{'Payment Method'|trans}}</th>
+                <td>{% if order.paymentMethod == 'card' %}{{'Card'|trans}}{% else %}{{'Courier'|trans}}{% endif %}</td>
             </tr>
             <tr>
-                <th>Клиент</th>
+                <th>{{'Full Name'|trans}}</th>
                 <td>{{ order.fullName }}</td>
             </tr>
             <tr>
-                <th>Адрес</th>
+                <th>{{'Delivery Address'|trans}}</th>
                 <td>{{ order.fullAddress }}</td>
             </tr>
             <tr>
-                <th>Статус</th>
+                <th>{{'Order Status'|trans}}</th>
                 <td>{% apply spaceless %}
-                        {% if order.status == 'new' %}Новый{% endif %}
-                        {% if order.status == 'unprocessed' %}Необработанный{% endif %}
-                        {% if order.status == 'done' %}Готовый{% endif %}
+                        {% if order.status == 'new' %}{{'New'|trans}}{% endif %}
+                        {% if order.status == 'unprocessed' %}{{'Unprocessed'|trans}}{% endif %}
+                        {% if order.status == 'done' %}{{'Finished'|trans}}{% endif %}
                     {% endapply %}</td>
             </tr>
             <tr>
-                <th>Товары</th>
+                <th>{{'Products'|trans}}</th>
                 <td>
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Товар</th>
-                            <th style="width: 75px;" class="pull-right">Количество</th>
-                            <th style="width: 75px;" class="pull-right">За единицу</th>
-                            <th style="width: 75px;" class="pull-right">Сумма</th>
+                            <th>{{'Product'|trans}}</th>
+                            <th style="width: 75px;" class="pull-right">{{'Quantity'|trans}}</th>
+                            <th style="width: 75px;" class="pull-right">{{'Price per item'|trans}}</th>
+                            <th style="width: 75px;" class="pull-right">{{'Total Price'|trans}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -52,23 +52,23 @@
                                     {% endif %}
                                 {% endapply %}</td>
                             <td class="pull-right">{{ orderedProduct.quantity }}</td>
-                            <td class="pull-right">{{ orderedProduct.price | number_format(2) }} грн</td>
-                            <td class="pull-right">{{ (orderedProduct.price * orderedProduct.quantity) | number_format(2) }} грн</td>
+                            <td class="pull-right">{{ orderedProduct.price | number_format(2) }} {{'UAH'|trans}}</td>
+                            <td class="pull-right">{{ (orderedProduct.price * orderedProduct.quantity) | number_format(2) }} {{'UAH'|trans}}</td>
                         {% endfor %}
                         </tbody>
                     </table>
                 </td>
             </tr>
             <tr>
-                <th>Номер телефона</th>
+                <th>{{'Phone Number'|trans}}</th>
                 <td><a href="tel:{{ order.phoneNumber }}">{{ order.phoneNumber }}</a></td>
             </tr>
             {% if order.status != 'done' %}
             <tr>
-                <th>Действия</th>
+                <th>{{'Actions'|trans}}</th>
                 <td>
                     <form class="button-group" method="post" action="{{ url('order_update', { id: order.id }) }}">
-                        <input type="submit" class="button" value="Отметить готовым" />
+                        <input type="submit" class="button" value="{{ 'Mark as Finished' | trans }}" />
                     </form>
                 </td>
             </tr>

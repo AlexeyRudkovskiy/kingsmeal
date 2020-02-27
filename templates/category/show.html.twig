@@ -1,6 +1,6 @@
 {% extends 'admin.html.twig' %}
 
-{% block title %}{{ category.name }} :: Категории :: King'sMeal{% endblock %}
+{% block title %}{{ 'Category - %name% :: KingsMeal' | trans({ '%name%': category.name }) }}{% endblock %}
 
 {% block body %}
     <h1>{{ category.name }}</h1>
@@ -8,19 +8,19 @@
     <table class="table details-table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{{ 'ID' | trans }}</th>
                 <td>{{ category.id }}</td>
             </tr>
             <tr>
-                <th>Название</th>
+                <th>{{ 'Name' | trans }}</th>
                 <td>{{ category.name }}</td>
             </tr>
             <tr>
-                <th>Изображение</th>
+                <th>{{ 'Image' | trans }}</th>
                 <td>{% if category.imageFilename != null %}<img src="{{ asset('uploads/photos/' ~ category.imageFilename) }}" style="width: 200px;" />{% endif %}</td>
             </tr>
             <tr>
-                <th>Товары</th>
+                <th>{{ 'Products' | trans }}</th>
                 <td>
                     <ul>
                         {% for product in category.products %}

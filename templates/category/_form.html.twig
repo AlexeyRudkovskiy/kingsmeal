@@ -1,5 +1,5 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
     <div class="vertical-spacer"></div>
-    <button class="button"><i class="icon">💾</i><span>{{ button_label|default('Сохранить') }}</span></button>
+    <button class="button"><i class="icon">💾</i><span>{{ button_label|default('Save')|trans }}</span></button>
 {{ form_end(form) }}

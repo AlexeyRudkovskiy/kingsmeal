@@ -1,9 +1,9 @@
 {% extends 'admin.html.twig' %}
 
-{% block title %}New Product{% endblock %}
+{% block title %}{{ 'Creating a Product :: KingsMeal' | trans}}{% endblock %}
 
 {% block body %}
-    <h1>Создание нового продукта</h1>
+    <h1>{{ 'Creating a Product' | trans}}</h1>
 
     {{ include('product/_form.html.twig') }}
 
