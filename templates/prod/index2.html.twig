@@ -36,6 +36,7 @@
         <!-- End Categories -->
         {% for category in categories %}
             <div id="category-content-{{ category.id }}" class="hidden">
+                {% if category.description|length > 0 %}<div class="category-description">{{ category.description|nl2br }}</div>{% endif %}
                 <div class="products-grid">
                     {% for product in category.products %}
                         <div class="product">

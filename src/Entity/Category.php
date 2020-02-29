@@ -39,6 +39,11 @@ class Category
      */
     private $photos;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -136,6 +141,18 @@ class Category
             $this->photos->removeElement($photo);
             $photo->removeCategory($this);
         }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
