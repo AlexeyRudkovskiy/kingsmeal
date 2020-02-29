@@ -17,6 +17,7 @@
 @import "widgets/promo";
 @import "widgets/maps";
 @import "widgets/gallery";
+@import "widgets/foros-promo";
 
 @import "widgets/form";
 
@@ -35,6 +36,7 @@
     @import "mobile/widgets/cart-product-item";
     @import "mobile/widgets/promo";
     @import "mobile/widgets/menu";
+    @import "mobile/widgets/foros-promo";
 }
 
 body {

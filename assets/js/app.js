@@ -18,6 +18,7 @@ import mapWidget from './widgets/map'
 import {scrollPromos} from "./helpers/scroll-promos";
 import showMenu from "./helpers/show-menu";
 import showPhones from "./helpers/show-phones";
+import {forosPromoWidget} from "./helpers/foros-promo";
 
 require('../css/app.scss');
 
@@ -36,6 +37,7 @@ require('../css/app.scss');
     scrollPromos();
     showMenu();
     showPhones();
+    forosPromoWidget();
 
 })();
 

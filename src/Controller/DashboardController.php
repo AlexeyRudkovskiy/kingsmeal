@@ -84,7 +84,15 @@ class DashboardController extends AbstractController
                 'options' => [
                     'label' => $translator->trans('Card Payment')
                 ]
-            ]
+            ], [
+                'type' => TextareaType::class,
+                'path' => 'forosText',
+                'name' => 'forosText',
+                'label' => $translator->trans('Реклама Фороса'),
+                'options' => [
+                    'label' => $translator->trans('Реклама Фороса')
+                ]
+            ],
         ];
 
         $path = $kernel->getProjectDir() . '/var/settings.json';

@@ -67,6 +67,10 @@
     {% block body %}{% endblock %}
 
     <div class="popup-target hidden"></div>
+    <div class="foros-promo">
+        <div class="promo-close"><img src="{{ asset('assets/icons/close.png') }}" /></div>
+        <div>{{ kingsmeal.setting('forosText')|nl2br }}</div>
+    </div>
 
     {{ encore_entry_script_tags('app') }}
     {% block javascripts %}{% endblock %}
